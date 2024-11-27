@@ -1,1 +1,2 @@
 # Global_Mineral_Indices_Computing_Engine
+This project is a global-scale remote sensing data computing engine built on ODPS (Open Data Processing Service). It leverages ASTER L1T data to compute global mineral indices. The engine is designed to process and analyze vast amounts of remote sensing data, providing valuable insights into mineral resources worldwide.
