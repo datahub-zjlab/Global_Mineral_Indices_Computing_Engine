@@ -72,11 +72,13 @@ print(result)
 # set odps.sql.python.version=cp37;
 # Run the UDF you create to get the results of the preprocessed remote sensing images
 SQL=f'''
-insert overwrite table {results_table} select x as tile_index_x ,y as tile_index_y,results.meta as meta,results.code as code,
+insert overwrite table {results_table} 
+select x as tile_index_x ,y as tile_index_y,results.meta as meta,results.code as code,
 results.data[0],results.data[1],results.data[2],results.data[3],results.data[4],results.data[5], results.data[6],results.data[7],
 results.data[8], results.data[9]
 from (SELECT tile_index_x as x, tile_index_y as y,
-GMI_ComputeEngine(get_json_object(json_object('tile_info',tile_info,"granule_id",granule_id,"tile_index_x",tile_index_x,"tile_index_y",tile_index_y,
+GMI_ComputeEngine(
+get_json_object(json_object('tile_info',tile_info,"granule_id",granule_id,"tile_index_x",tile_index_x,"tile_index_y",tile_index_y,
 "min_row",min_row,"min_col",min_col,"max_row",max_row,"max_col",max_col,
 "atmospheric_correction_paras",atmospheric_correction_paras,
 "bands","VNIR_Swath_ImageData1-VNIR_Swath_ImageData2-VNIR_Swath_ImageData3-SWIR_Swath_ImageData4-SWIR_Swath_ImageData5-SWIR_Swath_ImageData6-SWIR_Swath_ImageData7-SWIR_Swath_ImageData8-SWIR_Swath_ImageData9",
@@ -84,7 +86,8 @@ GMI_ComputeEngine(get_json_object(json_object('tile_info',tile_info,"granule_id"
 array(VNIR_Swath_ImageData1,VNIR_Swath_ImageData2,VNIR_Swath_ImageData3,SWIR_Swath_ImageData4,SWIR_Swath_ImageData5,
 SWIR_Swath_ImageData6,SWIR_Swath_ImageData7,SWIR_Swath_ImageData8,SWIR_Swath_ImageData9),
 array(modis_VNIR_Swath_ImageData1,modis_VNIR_Swath_ImageData2,modis_VNIR_Swath_ImageData3,modis_VNIR_Swath_ImageData4,
-modis_SWIR_Swath_ImageData5,modis_SWIR_Swath_ImageData6,modis_SWIR_Swath_ImageData7)) as results FROM {source_table} GROUP BY tile_index_x, tile_index_y);'''
+modis_SWIR_Swath_ImageData5,modis_SWIR_Swath_ImageData6,modis_SWIR_Swath_ImageData7)) 
+as results FROM {source_table} GROUP BY tile_index_x, tile_index_y);'''
 
 job_id = GMI_CE.Computing.create_job(sql=SQL)
 print(job_id)
