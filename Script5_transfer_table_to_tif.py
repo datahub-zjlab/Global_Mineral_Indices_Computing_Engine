@@ -41,6 +41,8 @@ if __name__=="__main__":
                  "swir_swath_imagedata7", "swir_swath_imagedata8", "swir_swath_imagedata9"]
     elif label=='MineralIndices':
         bands = functional_group_names
+    else:
+        raise RuntimeError('Only label in list is allowed now!')
 
     os.makedirs(save_path,exist_ok=True)
 
@@ -58,6 +60,6 @@ if __name__=="__main__":
             byte_data = bytes.fromhex(hex_string)
             band_data = np.frombuffer(byte_data, dtype=default_dtype)
             data.append(band_data.reshape((tile_size,tile_size)))
-            
+
         save_to_geotif(data,meta,bands,path)
 
