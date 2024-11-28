@@ -72,3 +72,7 @@
 8. Transfer table to GeoTiff file with `Script5_transfer_table_to_tif.py`
 
 ## Results
+Typical result of output asterimage and mineralindices in South America:
+
+<img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_asterimage.png" alt="asterimage" width="300px" />
+<img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_linearstretch_groupindex.png" alt="mineralindices" width="300px" />
