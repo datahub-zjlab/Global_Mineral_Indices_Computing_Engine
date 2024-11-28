@@ -6,7 +6,7 @@ from GMI_ComputeEngine_ODPS.computing.data_types import Column, ColumnType
 GMI_CE.api_key = "NDUkMTczMjY5OTcwNyRqYXh5anBnbQ"
 GMI_CE.api_baseurl = "http://221.228.10.51:18080/platform/"
 
-# 1. CREATE TABLE  FOR SOURCE DATA
+# 1. Example column of ODPS table
 columns = [
     Column(name='granule_id', type=ColumnType.STRING, comment='Unique identifier for each granule'),
     Column(name='min_row', type=ColumnType.BIGINT, comment='Minimum row index of the image data'),
@@ -37,7 +37,7 @@ columns = [
 ]
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Process an ASTER HDF file.')
+    parser = argparse.ArgumentParser(description='Upload table to ODPS.')
     parser.add_argument('csv_file', type=str, help='Path to the output table to be uploaded.')
     parser.add_argument('source_table', type=str, help='Source table name in ODPS.')
 

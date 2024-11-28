@@ -6,8 +6,8 @@ GMI_CE.api_key = "NDUkMTczMjY5OTcwNyRqYXh5anBnbQ"
 GMI_CE.api_baseurl = "http://221.228.10.51:18080/platform/"
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Process an ASTER HDF file.')
-    parser.add_argument('csv_file', type=str, help='Path to the output table to be downloaded.')
+    parser = argparse.ArgumentParser(description='Download table from ODPS to local.')
+    parser.add_argument('csv_file', type=str, help='Path to the downloaded table.')
     parser.add_argument('results_table', type=str, help='Results table name in ODPS.')
 
     args = parser.parse_args()
