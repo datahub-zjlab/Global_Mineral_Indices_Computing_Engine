@@ -70,3 +70,5 @@
 7. Download table from ODPS with `Script4_download_table_from_odps.py`
 
 8. Transfer table to GeoTiff file with `Script5_transfer_table_to_tif.py`
+
+## Results
