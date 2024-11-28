@@ -1,8 +1,8 @@
 # Global_Mineral_Indices_Computing_Engine
 ## Overview
-This project is a global-scale remote sensing data computing engine built on Alibaba Cloud's Apsara ODPS (Open Data Processing Service) which leverages ASTER L1T data to compute global mineral indices. The engine is designed to process and analyze vast amounts of remote sensing data, providing valuable insights into mineral resources worldwide.
+    This project is a global-scale remote sensing data computing engine built on Alibaba Cloud's Apsara ODPS (Open Data Processing Service) which leverages ASTER L1T data to compute global mineral indices. The engine is designed to process and analyze vast amounts of remote sensing data, providing valuable insights into mineral resources worldwide.
 
-Traditional mineral indices research has typically focused on local areas. However, when the spatial scale of study expands to a global scale, the massive amounts of remote sensing data present new challenges in terms of data storage and computation resources. Alibaba Cloud's ODPS (Open Data Processing Service) is a cloud-native big data computing service that has been upgraded to an integrated big data platform, addressing these challenges by integrating storage and computation resources. The development of a Global Mineral Indices Computing Engine based on the ODPS platform not only leverages Alibaba Cloud's advanced big data platform to address the storage and computational challenges of global-scale remote sensing data but also enhances the efficiency and accuracy of mineral indices research on a global scale.
+    Traditional mineral indices research has typically focused on local areas. However, when the spatial scale of study expands to a global scale, the massive amounts of remote sensing data present new challenges in terms of data storage and computation resources. Alibaba Cloud's ODPS (Open Data Processing Service) is a cloud-native big data computing service that has been upgraded to an integrated big data platform, addressing these challenges by integrating storage and computation resources. The development of a Global Mineral Indices Computing Engine based on the ODPS platform not only leverages Alibaba Cloud's advanced big data platform to address the storage and computational challenges of global-scale remote sensing data but also enhances the efficiency and accuracy of mineral indices research on a global scale.
 
 ## Get started with following steps
 1. Prepare your Python enviroment
@@ -41,14 +41,17 @@ Traditional mineral indices research has typically focused on local areas. Howev
 
 4. Transfer Aster L1t data into table with `Script1_transfer_aster_to_table.py` 
 
-    Try to transfer the raster data and meta data of ASTER L1T hdf file as well as other support information like atmospheric correcion parameters and reflectance reference raster data into a row in a table.
+    Try to transfer the raster data and meta data of ASTER L1T hdf file as well as other auxiliary data like atmospheric correcion parameters and reflectance reference raster data into one row in a table.
     
     In this step, we will utilize `Script1_transfer_aster_to_table.py` to achieve the following:
     
-        (1) Resample the ASTER L1T raster data from the UTM coordinate system to a customed standard tile (1024*1024) in the Web Mercator coordinate system with a resolution of 30 meters. Additionally, the raster data of the tile will be re-encoded from array type to binary type.
-        (2) Calculate atmospheric correction parameters based on the provided AOD (Aerosol Optical Depth) and DEM (Digital Elevation Model) parameters.
-        (3) In reference to the ASTER L1T raster data, resample the MODIS surface reflectance data to the tile and re-encode it into binary type.
-        (4) Write all the aforementioned fields into a single row in a table.
+    (1) Resample the ASTER L1T raster data from the UTM coordinate system to a customed standard tile (1024*1024) in the Web Mercator coordinate system with a resolution of 30 meters. Additionally, the raster data of the tile will be re-encoded from array type to binary type.
+
+    (2) Calculate atmospheric correction parameters based on the provided AOD (Aerosol Optical Depth) and DEM (Digital Elevation Model) parameters.
+
+    (3) In reference to the ASTER L1T raster data, resample the MODIS surface reflectance data to the tile and re-encode it into binary type.
+
+    (4) Write all the aforementioned fields into a single row in a table.
     
     We have provided some demo data in the Google Drive folder accessible at this [link](https://drive.google.com/drive/folders/1yQ1_9ZQLKNLNPn-t6w2nS44n9toOW67X?). You can use the provided demo data to run the `Script1_transfer_aster_to_table.py` to obtain the corresponding table data, which will be stored in CSV format.
 
@@ -59,3 +62,11 @@ Traditional mineral indices research has typically focused on local areas. Howev
     ```
 
     After this step, you can obtain your table data (one row) stored in `GMI_ComputeEngine_Demo_ASTER_Tiles_Table.csv`.
+
+5. Upload table into ODPS with `Script2_upload_table_to_odps.py`
+
+6. Computing in ODPS with `Script3_computing.py`
+
+7. Download table from ODPS with `Script4_download_table_from_odps.py`
+
+8. Transfer table to GeoTiff file with `Script5_transfer_table_to_tif.py`
