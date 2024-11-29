@@ -186,7 +186,7 @@ Traditional mineral indices research has typically focused on local areas. Howev
 If you face any issues or need further assistance, please verify the legitimacy of the URL and ensure your network settings allow access to the specified URL.
 
 ## Results
-Typical result of output asterimage and mineralindices in South America:
+Typical result of output aster merged and color transfered image and mineral indices (Alteration Mapping of Porphyry Copper Deposits) in South America:
 
 <div style="display: flex; align-items: center;">
   <img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_asterimage.png" alt="asterimage" width="250px" style="margin-right: 10px;" />
