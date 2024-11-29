@@ -92,6 +92,7 @@ Traditional mineral indices research has typically focused on local areas. Howev
     After executing the script, the data from your CSV file will be uploaded to the specified ODPS table. If the table does not exist, it will be created with the column structure defined in the script.
 
 6. Computing in ODPS with `Script3_computing.py`
+
     This guide will help you understand how to use `Script3_computing.py` to perform advanced computations on data stored in an ODPS (Online Data Processing Service) table.
 
     The script enables you to execute different computational methods on your data, including merging data, color transfer, and mineral indices calculation.
@@ -124,9 +125,65 @@ Traditional mineral indices research has typically focused on local areas. Howev
 
 7. Download table from ODPS with `Script4_download_table_from_odps.py`
 
-8. Transfer table to GeoTiff file with `Script5_transfer_table_to_tif.py`
+    This guide will assist you in using `Script4_download_table_from_odps.py` to download data from an ODPS (Online Data Processing Service) table to your local machine.
 
-The script sets an API key and base URL for connecting to the ODPS service. Make sure these are correctly configured for your environment. If you encounter issues with connecting to the provided base URL "http://*.*.*.*:*/platform/", it may be due to network restrictions or an invalid URL. Please verify the URL's legitimacy and ensure your network settings allow access to the specified URL. If the issue persists, consider reaching out to your network administrator or service provider for assistance. If you do not need the content from this URL for your computation, you can proceed with the script execution as described above.
+    The script facilitates the following actions:
+
+    (1) Download the contents of an ODPS table to a specified CSV file on your local system.
+
+    To use this script, you will need the name of the results table in ODPS and a local path where you want to save the downloaded CSV file.
+
+    Here's how you can execute the `Script4_download_table_from_odps.py`:
+
+    ```bash
+    python Script4_download_odps_to_local.py path_to_save_csv your_results_table_name
+    ```
+
+    Replace `path_to_save_csv` with the local path where you want to save the CSV file, and `your_results_table_name` with the name of the results table in ODPS from which you want to download the data.
+
+    For example, if you want to download the data to a file named `downloaded_data.csv`:
+
+    ```bash
+    python Script4_download_odps_to_local.py downloaded_data.csv results_table
+    ```
+
+    After executing the script, the data from the specified ODPS table will be downloaded and saved as a CSV file at the specified local path.
+
+8. Transfer table to GeoTiff file with `Script5_transfer_table_to_tif.py`
+    This guide will help you understand how to use `Script5_convert_table_to_geotiff.py` to convert a table row containing raster data into a GeoTIFF file.
+
+    The script performs the following actions:
+
+    (1) Reads a CSV file containing raster data and metadata.
+
+    (2) Based on the specified label, selects the appropriate bands to process.
+
+    (3) Converts the hexadecimal string data from the CSV file into binary data, and then into a numpy array.
+
+    (4) Saves the numpy array as a GeoTIFF file using the metadata from the CSV file.
+
+    To use this script, you will need a CSV file containing raster data and metadata, and a local path where you want to save the GeoTIFF files.
+
+    Here's how you can execute the `Script5_convert_table_to_geotiff.py`:
+
+    ```bash
+    python Script5_convert_table_to_geotiff.py path_to_your_csv_file --save_path path_to_save_geotiff --label your_data_label
+    ```
+
+    Replace `path_to_your_csv_file` with the path to your CSV file, `path_to_save_geotiff` with the local path where you want to save the GeoTIFF files, and `your_data_label` with the label of your data (`ASTRef` or `MineralIndices`).
+
+    For example, if you want to convert data labeled as `MineralIndices` and save the GeoTIFF files in the current directory:
+
+    ```bash
+    python Script5_convert_table_to_geotiff.py downloaded_data.csv --save_path . --label MineralIndices
+    ```
+
+    After executing the script, the data from the CSV file will be converted into GeoTIFF files and saved at the specified local path.
+
+    Note: The script assumes that the CSV file has a specific structure, with columns for tile indices, metadata, and hexadecimal string data for each band. Make sure your CSV file matches this structure.
+
+**Note:**
+If you face any issues or need further assistance, please verify the legitimacy of the URL and ensure your network settings allow access to the specified URL.
 
 ## Results
 Typical result of output asterimage and mineralindices in South America:
