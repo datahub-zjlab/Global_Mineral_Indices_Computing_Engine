@@ -188,5 +188,7 @@ If you face any issues or need further assistance, please verify the legitimacy 
 ## Results
 Typical result of output asterimage and mineralindices in South America:
 
-<img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_asterimage.png" alt="asterimage" width="250px" />
-<img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_linearstretch_groupindex.png" alt="mineralindices" width="250px" />
+<div style="display: flex; align-items: center;">
+  <img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_asterimage.png" alt="asterimage" width="250px" style="margin-right: 10px;" />
+  <img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_linearstretch_groupindex.png" alt="mineralindices" width="250px" />
+</div>
