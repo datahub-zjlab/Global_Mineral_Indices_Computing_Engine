@@ -2,8 +2,8 @@ import argparse
 import GMI_ComputeEngine_ODPS as GMI_CE
 
 # SET API KEY
-GMI_CE.api_key = "NDUkMTczMjY5OTcwNyRqYXh5anBnbQ"
-GMI_CE.api_baseurl = "http://221.228.10.51:18080/platform/"
+GMI_CE.api_key = "*"
+GMI_CE.api_baseurl = "http://*.*.*.*:*/platform/"
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Download table from ODPS to local.')

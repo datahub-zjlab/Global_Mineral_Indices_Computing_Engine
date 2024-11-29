@@ -2,8 +2,8 @@ import GMI_ComputeEngine_ODPS as GMI_CE
 from GMI_ComputeEngine_ODPS.computing.data_types import Column, ColumnType
 
 # SET API KEY
-GMI_CE.api_key = "NDUkMTczMjY5OTcwNyRqYXh5anBnbQ"
-GMI_CE.api_baseurl = "http://221.228.10.51:18080/platform/"
+GMI_CE.api_key = "*"
+GMI_CE.api_baseurl = "http://*.*.*.*:*/platform/"
 
 def merge(source_table,results_table):
     # 2.Use functions

@@ -1,8 +1,8 @@
 # Global_Mineral_Indices_Computing_Engine
 ## Overview
-    This project is a global-scale remote sensing data computing engine built on Alibaba Cloud's Apsara ODPS (Open Data Processing Service) which leverages ASTER L1T data to compute global mineral indices. The engine is designed to process and analyze vast amounts of remote sensing data, providing valuable insights into mineral resources worldwide.
+This project is a global-scale remote sensing data computing engine built on Alibaba Cloud's Apsara ODPS (Open Data Processing Service) which leverages ASTER L1T data to compute global mineral indices. The engine is designed to process and analyze vast amounts of remote sensing data, providing valuable insights into mineral resources worldwide.
 
-    Traditional mineral indices research has typically focused on local areas. However, when the spatial scale of study expands to a global scale, the massive amounts of remote sensing data present new challenges in terms of data storage and computation resources. Alibaba Cloud's ODPS (Open Data Processing Service) is a cloud-native big data computing service that has been upgraded to an integrated big data platform, addressing these challenges by integrating storage and computation resources. The development of a Global Mineral Indices Computing Engine based on the ODPS platform not only leverages Alibaba Cloud's advanced big data platform to address the storage and computational challenges of global-scale remote sensing data but also enhances the efficiency and accuracy of mineral indices research on a global scale.
+Traditional mineral indices research has typically focused on local areas. However, when the spatial scale of study expands to a global scale, the massive amounts of remote sensing data present new challenges in terms of data storage and computation resources. Alibaba Cloud's ODPS (Open Data Processing Service) is a cloud-native big data computing service that has been upgraded to an integrated big data platform, addressing these challenges by integrating storage and computation resources. The development of a Global Mineral Indices Computing Engine based on the ODPS platform not only leverages Alibaba Cloud's advanced big data platform to address the storage and computational challenges of global-scale remote sensing data but also enhances the efficiency and accuracy of mineral indices research on a global scale.
 
 ## Get started with following steps
 1. Prepare your Python enviroment
@@ -65,11 +65,68 @@
 
 5. Upload table into ODPS with `Script2_upload_table_to_odps.py`
 
+    This guide will help you understand how to use `Script3_upload_to_odps.py` to upload data from a CSV file to an ODPS (Online Data Processing Service) table.
+
+    The script performs the following actions:
+
+    (1) Defines the structure of the ODPS table by specifying the columns and their data types, including identifiers, index information, tile metadata, atmospheric correction parameters, and image data for various bands.
+
+    (2) Parses command line arguments to obtain the path to the CSV file and the name of the source table in ODPS.
+
+    (3) Creates an ODPS table with the specified columns if it does not exist.
+
+    (4) Uploads data from the CSV file to the specified ODPS table.
+
+    To use this script, you will need a CSV file containing the data you wish to upload to ODPS. The CSV file should have columns that match the structure defined in the script.
+
+    We have also provided demo table in the Google Drive folder accessible at this [link](https://drive.google.com/drive/folders/1yQ1_9ZQLKNLNPn-t6w2nS44n9toOW67X?) which store more rows (rasters) in the same tile region.
+
+    Here's how you can run the `Script2_upload_table_to_odps.py`:
+
+    ```bash
+    python Script3_upload_to_odps.py path_to_your_csv_file.csv your_source_table_name
+    ```
+
+    Replace `path_to_your_csv_file.csv` with the actual path to your CSV file(`GMI_ComputeEngine_Demo_ASTER_Tiles_Table.csv`) and `your_source_table_name` with the name of the table in ODPS where you want to upload the data.
+
+    After executing the script, the data from your CSV file will be uploaded to the specified ODPS table. If the table does not exist, it will be created with the column structure defined in the script.
+
 6. Computing in ODPS with `Script3_computing.py`
+    This guide will help you understand how to use `Script3_computing.py` to perform advanced computations on data stored in an ODPS (Online Data Processing Service) table.
+
+    The script enables you to execute different computational methods on your data, including merging data, color transfer, and mineral indices calculation.
+
+    Here's what you can achieve with `Script3_computing.py`:
+
+    (1) **Merge Data**(merge): Perform DN to radiance conversion, atmospheric correction, and merge operations on your data.
+
+    (2) **Color Transfer**(color_transfer): In addition to merging, apply color (spectral) transfer to your data.
+
+    (3) **Mineral Indices Calculation**(mineral_indices): After merging and color transfer, calculate mineral indices for your data.
+
+    To use this script, you will need to have data in an ODPS table and specify the source and results tables.
+
+    Here's how you can run the `Script3_computing.py`:
+
+    ```bash
+    python Script3_computing.py your_source_table_name your_results_table_name --method your_selected_method
+    ```
+
+    Replace `your_source_table_name` with the name of the source table in ODPS, `your_results_table_name` with the name of the table where you want to store the results, and `your_selected_method` with the computing method you want to apply (merge, color_transfer, or mineral_indices).
+
+    For example, if you want to perform mineral indices calculation:
+
+    ```bash
+    python Script3_computing.py source_table results_table --method mineral_indices
+    ```
+
+    After executing the script, the selected computation will be performed on your data, and the results will be stored in the specified results table.
 
 7. Download table from ODPS with `Script4_download_table_from_odps.py`
 
 8. Transfer table to GeoTiff file with `Script5_transfer_table_to_tif.py`
+
+The script sets an API key and base URL for connecting to the ODPS service. Make sure these are correctly configured for your environment. If you encounter issues with connecting to the provided base URL "http://*.*.*.*:*/platform/", it may be due to network restrictions or an invalid URL. Please verify the URL's legitimacy and ensure your network settings allow access to the specified URL. If the issue persists, consider reaching out to your network administrator or service provider for assistance. If you do not need the content from this URL for your computation, you can proceed with the script execution as described above.
 
 ## Results
 Typical result of output asterimage and mineralindices in South America:
