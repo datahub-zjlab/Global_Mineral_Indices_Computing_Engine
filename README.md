@@ -5,6 +5,9 @@ This project is a global-scale remote sensing data computing engine built on Ali
 Traditional mineral indices research has typically focused on local areas. However, when the spatial scale of study expands to a global scale, the massive amounts of remote sensing data present new challenges in terms of data storage and computation resources. Alibaba Cloud's ODPS (Open Data Processing Service) is a cloud-native big data computing service that has been upgraded to an integrated big data platform, addressing these challenges by integrating storage and computation resources. The development of a Global Mineral Indices Computing Engine based on the ODPS platform not only leverages Alibaba Cloud's advanced big data platform to address the storage and computational challenges of global-scale remote sensing data but also enhances the efficiency and accuracy of mineral indices research on a global scale.
 
 ## Get started with following steps
+This guide will walk you through the steps to set up and utilize a computational pipeline for processing ASTER L1T data and performing advanced computations using ODPS (Online Data Processing Service). The process involves preparing your Python environment, installing necessary packages, transferring ASTER data into a structured table format, uploading this data to ODPS, performing computations, downloading the results, and converting the data into GeoTIFF files. We provide a comprehensive set of scripts and example data to facilitate this workflow.
+
+To get started, follow the detailed steps outlined below. We have also made available a set of demo data (you can download from [Google Drive Link](https://drive.google.com/drive/folders/1yQ1_9ZQLKNLNPn-t6w2nS44n9toOW67X?)) and ODPS computational resources to help you through the process.
 1. Prepare your Python enviroment
 
     First, you will need to set up a brand-new Python environment using conda and install the aster_core package. For detailed installation instructions and introductions to aster_core, you can refer to the [repository](https://github.com/datahub-zjlab/AsterL1T_SWIR-VNIR_pipeline) :
@@ -18,7 +21,7 @@ Traditional mineral indices research has typically focused on local areas. Howev
 
     pip install path/to/aster_core-0.0.2-py3-none-any.whl
     ```
-    Then download the files from the aster_core/resource directory in the repository. Place these files in the corresponding directory where the aster_core package is installed.
+    Then download the files from the aster_core/resource directory in the [repository](https://github.com/datahub-zjlab/AsterL1T_SWIR-VNIR_pipeline). Place these files in the corresponding directory where the aster_core package is installed.
 
 2. Install GMI_ComputeEngine_ODPS
 
@@ -49,11 +52,11 @@ Traditional mineral indices research has typically focused on local areas. Howev
 
     (2) Calculate atmospheric correction parameters based on the provided AOD (Aerosol Optical Depth) and DEM (Digital Elevation Model) parameters.
 
-    (3) In reference to the ASTER L1T raster data, resample the MODIS surface reflectance data to the tile and re-encode it into binary type.
+    (3) In reference to the ASTER L1T raster data, resample the MODIS surface reflectance data used for color balancing to the tile and re-encode it into binary type.
 
     (4) Write all the aforementioned fields into a single row in a table.
     
-    We have provided some demo data in the Google Drive folder accessible at this [link](https://drive.google.com/drive/folders/1yQ1_9ZQLKNLNPn-t6w2nS44n9toOW67X?). You can use the provided demo data to run the `Script1_transfer_aster_to_table.py` to obtain the corresponding table data, which will be stored in CSV format.
+    We have provided some demo data in the Google Drive folder accessible at this [Google Drive Link](https://drive.google.com/drive/folders/1yQ1_9ZQLKNLNPn-t6w2nS44n9toOW67X?). You can use the provided demo data to run the `Script1_transfer_aster_to_table.py` to obtain the corresponding table data, which will be stored in CSV format.
 
     ```bash
     conda activate myenv
@@ -95,15 +98,15 @@ Traditional mineral indices research has typically focused on local areas. Howev
 
     This guide will help you understand how to use `Script3_computing.py` to perform advanced computations on data stored in an ODPS (Online Data Processing Service) table.
 
-    The script enables you to execute different computational methods on your data, including merging data, color transfer, and mineral indices calculation.
+    The script enables you to execute different computational methods on your data, including merging data, color balancing, and mineral indices calculation.
 
     Here's what you can achieve with `Script3_computing.py`:
 
-    (1) **Merge Data**(merge): Perform DN to radiance conversion, atmospheric correction, and merge operations on your data.
+    (1) **Mosaic Data**(mosaic): Perform DN to radiance conversion, atmospheric correction, and merge operations on your data.
 
-    (2) **Color Transfer**(color_transfer): In addition to merging, apply color (spectral) transfer to your data.
+    (2) **Color Balancing**(color_balancing): In addition to merging, apply color (spectral) transfer to your data.
 
-    (3) **Mineral Indices Calculation**(mineral_indices): After merging and color transfer, calculate mineral indices for your data.
+    (3) **Mineral Indices Calculation**(mineral_indices): After merging and color balancing, calculate mineral indices for your data.
 
     To use this script, you will need to have data in an ODPS table and specify the source and results tables.
 
@@ -183,12 +186,89 @@ Traditional mineral indices research has typically focused on local areas. Howev
     Note: The script assumes that the CSV file has a specific structure, with columns for tile indices, metadata, and hexadecimal string data for each band. Make sure your CSV file matches this structure.
 
 **Note:**
-If you face any issues or need further assistance, please verify the legitimacy of the URL and ensure your network settings allow access to the specified URL.
+If you face any issues or need further assistance, please verify the legitimacy of the URL and ensure your network settings allow access to the ODPS server.
+
+## Detailed data processing steps
+
+This section provides a detailed description of the data processing steps involved in `Script3_computing.py`, including the acquisition of atmospheric correction parameters and the color balancing process using MODIS reflectance. Additionally, it outlines the method for calculating mineral indices.
+
+#### Atmospheric correction parameters acquisition
+
+The atmospheric correction parameters are crucial for accurately processing remote sensing data. These parameters can be obtained using two primary methods:
+
+1. Lookup Table (LUT) Based on 6S Model:
+   - **Method:** This approach involves using a precomputed Look-Up Table (LUT) generated by the 6S radiative transfer model. The LUT contains precomputed atmospheric correction parameters for various atmospheric conditions, aerosol types, and solar geometries.
+   - **Implementation:** The `Script1_transfer_aster_to_table.py` script can be configured to use this method by setting the `accuracy_ac_flag` to `False`. This flag instructs the script to retrieve the atmospheric correction parameters from the LUT based on the input AOD (Aerosol Optical Depth) and DEM (Digital Elevation Model) parameters.
+
+2. Direct Calculation Using 6S Model:
+   - **Method:** This method directly invokes the 6S radiative transfer model to compute the atmospheric correction parameters in real-time. This approach is more computationally intensive but provides more accurate results as it dynamically adjusts for the specific atmospheric conditions of the scene.
+   - **Implementation:** To use this method, set the `accuracy_ac_flag` to `True` in the `Script1_transfer_aster_to_table.py` script. This flag instructs the script to call the 6S model directly for computing the atmospheric correction parameters.
+
+#### Color balancing using MODIS reflectance
+
+Color balancing is a critical step in harmonizing the spectral characteristics of different datasets. In this process, MODIS reflectance data is used as a reference to achieve consistent spectral properties across multiple datasets. The following steps outline the color balancing process:
+
+1. Reference Data Selection:
+   - **MODIS Reflectance:** The MODIS surface reflectance data (MOD09A1) is used as the reference dataset. This dataset provides high-quality, atmospherically corrected surface reflectance values.
+   - **Note:** If the Modis reference data is not provided, the color balancing process will be skipped.
+
+2. Tasseled Cap Transformation:
+   - **Method:** The Tasseled Cap Transformation (TCT) is applied to the MODIS reflectance data to derive a set of orthogonal components that represent different physical properties of the land surface. These components are then used to guide the color balancing process.
+   - **Implementation:** The TCT is applied to both the MODIS reflectance data and the ASTER L1T data. The resulting TCT components from the MODIS data are used to adjust the corresponding components in the ASTER data, ensuring that the spectral characteristics of the ASTER data match those of the MODIS data.
+
+3. Spectral Harmonization:
+   - **Process:** The adjusted TCT components are then transformed back into the original spectral space, resulting in ASTER data that has been spectrally harmonized with the MODIS data. This process ensures that the ASTER data can be directly compared and combined with the MODIS data for further analysis.
+
+#### Mineral Indices Calculation
+
+Mineral indices are calculated to identify and quantify the presence of specific minerals in the remote sensing data. The calculation methods for various mineral indices are detailed in the reference table `Mineral_Indices.csv`, which includes the following columns:
+
+- **Index ID:** The ID of the mineral index.
+- **Index Name:** The name of the mineral index.
+- **Equation:** The mathematical formula used to calculate the index.
+
+By following these steps, the `Script3_computing.py` script enables the accurate processing of ASTER L1T data, including atmospheric correction, spectral harmonization with MODIS data, and calculation of mineral indices, to facilitate advanced remote sensing analysis.
+
+## Demo Data Sources and Licensing:
+The demo data provided includes the following datasets:
+
+- **ASTER L1T Data:**
+  - **Source:** The ASTER L1T data is sourced from the [NASA Land Processes Distributed Active Archive Center (LP DAAC)](https://lpdaac.usgs.gov/).
+  - **Licensing:** The data is distributed under the [NASA's Open Data Policy](https://www.nasa.gov/sites/default/files/atoms/files/nasa_open_data_policy.pdf), which allows for free and open access to the data for educational and scientific purposes.
+
+- **MODIS MCD19A2 Data:**
+  - **Source:** The MODIS MCD19A2 data is sourced from the [NASA Land Processes Distributed Active Archive Center (LP DAAC)](https://lpdaac.usgs.gov/).
+  - **Licensing:** The data is distributed under the [NASA's Open Data Policy](https://www.nasa.gov/sites/default/files/atoms/files/nasa_open_data_policy.pdf), which allows for free and open access to the data for educational and scientific purposes.
+
+- **MOD09A1 Data:**
+  - **Source:** The MOD09A1 data is sourced from the [NASA Land Processes Distributed Active Archive Center (LP DAAC)](https://lpdaac.usgs.gov/).
+  - **Licensing:** The data is distributed under the [NASA's Open Data Policy](https://www.nasa.gov/sites/default/files/atoms/files/nasa_open_data_policy.pdf), which allows for free and open access to the data for educational and scientific purposes.
+
+- **ASTER GDEM v003 Data:**
+  - **Source:** The ASTER GDEM v003 data is sourced from the [NASA Land Processes Distributed Active Archive Center (LP DAAC)](https://lpdaac.usgs.gov/).
+  - **Licensing:** The data is distributed under the [NASA's Open Data Policy](https://www.nasa.gov/sites/default/files/atoms/files/nasa_open_data_policy.pdf), which allows for free and open access to the data for educational and scientific purposes.
+
+Please ensure you comply with the licensing terms when using these datasets.
 
 ## Results
-Typical result of output aster merged and color transfered image and mineral indices (Alteration Mapping of Porphyry Copper Deposits) in South America:
+Typical result of output aster merged and color balancinged image and mineral indices (Alteration Mapping of Porphyry Copper Deposits) in South America:
 
 <div style="display: flex; align-items: center;">
   <img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_asterimage.png" alt="asterimage" width="250px" style="margin-right: 10px;" />
   <img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_linearstretch_groupindex.png" alt="mineralindices" width="250px" />
 </div>
+
+## Reference
+1. Wilson, R. T., 2012, Py6S: A Python interface to the 6S radiative transfer model, Computers and Geosciences, 51, p166-171
+
+## Project Participants
+- Research Center of Data Hub and Security, Zhejiang Lab ;  
+- Yangjie, China University of Geosciences (Beijing); 
+- Yunqi Academy of Engineering
+
+## Contact us
+For any questions or further assistance, please contact:
+
+- **Chen Ziyang**  
+  Email: [chenzy@zhejianglab.org](mailto:chenzy@zhejianglab.org)  
+  Zhejiang Lab, CHINA
