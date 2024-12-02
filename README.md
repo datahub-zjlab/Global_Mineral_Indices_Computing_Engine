@@ -262,11 +262,15 @@ Please ensure you comply with the licensing terms when using these datasets.
 1. Wilson, R. T., 2012, Py6S: A Python interface to the 6S radiative transfer model, Computers and Geosciences, 51, p166-171
 
 ## Project Participants
-- Research Center of Data Hub and Security, Zhejiang Lab ;  
-- Yangjie, China University of Geosciences (Beijing); 
-- Yunqi Academy of Engineering
 
-## Contact us
+This project is a collaborative effort involving the following institutions:
+
+- **Research Center of Data Hub and Security, Zhejiang Lab**  
+
+- **Yangjie, China University of Geosciences (Beijing)**  
+
+- **Yunqi Academy of Engineering**  
+
 For any questions or further assistance, please contact:
 
 - **Chen Ziyang**  
