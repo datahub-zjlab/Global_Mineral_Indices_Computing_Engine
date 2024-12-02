@@ -32,7 +32,7 @@ def get_bbox_from_aster(aster_file, dst_crs='epsg:3857'):
     dst_bbox = bbox2bbox(bbox, projection, dst_crs)
     return dst_bbox
 
-def process_tile(tile_index, aster_file, modis_ref_files, bands, aster_res, tile_size, granule_id, atmoshpheric_correction_paras):
+def process_tile(tile_index, aster_file, modis_ref_files, bands, aster_res, tile_size, granule_id, atmospheric_correction_paras):
     """
     Process a single tile from the ASTER HDF file.
     
@@ -65,7 +65,7 @@ def process_tile(tile_index, aster_file, modis_ref_files, bands, aster_res, tile
         result['tile_index_y'] = tile_index_y
         result['tile_info'] = f'res-{aster_res}_tilesize-{tile_size}'
         result['meta'] = json.dumps(meta)
-        result['atmoshpheric_correction_paras'] = json.dumps(atmoshpheric_correction_paras)
+        result['atmospheric_correction_paras'] = json.dumps(atmospheric_correction_paras)
 
         for i, band in enumerate(bands):
             result[band.replace(':','_')] = matrix_to_byte(zip_data[i])
@@ -119,11 +119,11 @@ def process_aster_file(aster_file, aod_input, gdem_input, modis_ref_files, bands
                 dem = gdem_input
 
             if accuracy_ac_flag:
-                atmoshpheric_correction_paras = calculate_atmospheric_correction_parameters(meta, bands, aod, dem)
+                atmospheric_correction_paras = calculate_atmospheric_correction_parameters(meta, bands, aod, dem)
             else:
-                atmoshpheric_correction_paras = get_atmospheric_correction_parameters(meta, bands, aod, dem)
+                atmospheric_correction_paras = get_atmospheric_correction_parameters(meta, bands, aod, dem)
 
-            result = process_tile(tile_index, aster_file, modis_ref_files, bands, aster_res, tile_size, granule_id, atmoshpheric_correction_paras)
+            result = process_tile(tile_index, aster_file, modis_ref_files, bands, aster_res, tile_size, granule_id, atmospheric_correction_paras)
             if result:
                 result_list.append(result)
         except Exception as e:

@@ -27,8 +27,10 @@ def merge(source_table,results_table):
         Column("swir_swath_imagedata9", ColumnType.STRING),
         Column("cloud_mask", ColumnType.STRING),
     ]
-
-    result = GMI_CE.Computing.create_table(name=results_table,columns=columns)
+    try:
+        result = GMI_CE.Computing.create_table(name=results_table,columns=columns)
+    except:
+        pass
     # set odps.sql.python.version=cp37;
     # Run the UDF you create to get the results of the preprocessed remote sensing images
     SQL=f'''
@@ -75,8 +77,10 @@ def color_transfer(source_table,results_table):
         Column("swir_swath_imagedata9", ColumnType.STRING),
         Column("cloud_mask", ColumnType.STRING),
     ]
-
-    result = GMI_CE.Computing.create_table(name=results_table,columns=columns)
+    try:
+        result = GMI_CE.Computing.create_table(name=results_table,columns=columns)
+    except:
+        pass
     # set odps.sql.python.version=cp37;
     # Run the UDF you create to get the results of the preprocessed remote sensing images
     SQL=f'''
@@ -136,8 +140,10 @@ def mineral_indices(source_table,results_table):
         Column("ndvi", ColumnType.STRING),
         Column("cloud_mask", ColumnType.STRING),
     ]
-    result = GMI_CE.Computing.create_table(name=results_table,columns=columns)
-
+    try:
+        result = GMI_CE.Computing.create_table(name=results_table,columns=columns)
+    except:
+        pass
     # Run the UDF you create to get the results of functional groups
     SQL=f'''set odps.sql.python.version=cp37;
     insert overwrite table {results_table}

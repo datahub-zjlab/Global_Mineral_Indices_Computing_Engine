@@ -17,7 +17,7 @@ columns = [
     Column(name='tile_index_y', type=ColumnType.BIGINT, comment='Tile index on the Y-axis'),
     Column(name='tile_info', type=ColumnType.STRING, comment='Additional information about the tile'),
     Column(name='meta', type=ColumnType.STRING, comment='Meta data'),
-    Column(name='atmoshpheric_correction_paras', type=ColumnType.STRING, comment='Atmoshpheric correction parameters by 6S model'),
+    Column(name='atmospheric_correction_paras', type=ColumnType.STRING, comment='Atmospheric correction parameters by 6S model'),
     Column(name='VNIR_Swath_ImageData1', type=ColumnType.STRING, comment='VNIR Swath image data for band 1'),
     Column(name='VNIR_Swath_ImageData2', type=ColumnType.STRING, comment='VNIR Swath image data for band 2'),
     Column(name='VNIR_Swath_ImageData3', type=ColumnType.STRING, comment='VNIR Swath image data for band 3'),
