@@ -1,9 +1,6 @@
 import argparse
 import GMI_ComputeEngine_ODPS as GMI_CE
 
-# SET API KEY
-GMI_CE.api_key = "*"
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Computing in ODPS.')
     parser.add_argument('source_table', type=str, help='Source table name in ODPS.')

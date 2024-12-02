@@ -1,9 +1,6 @@
 import argparse
 import GMI_ComputeEngine_ODPS as GMI_CE
 
-# SET API KEY
-GMI_CE.api_key = "*"
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Download table from ODPS to local.')
     parser.add_argument('csv_file', type=str, help='Path to the downloaded table.')

@@ -5,7 +5,7 @@ from GMI_ComputeEngine_ODPS.data import Data
 from GMI_ComputeEngine_ODPS.computing.data_types import ColumnType, Column, JobStatus, ResourceType
 from GMI_ComputeEngine_ODPS import method
 
-api_key = __os.getenv("GMI_ComputeEngine_APIKEY")
+api_key = "NDUkMTczMjY5OTcwNyRqYXh5anBnbQ"
 api_baseurl = "http://221.228.10.51:18080/platform/"
 
 __all__ = [

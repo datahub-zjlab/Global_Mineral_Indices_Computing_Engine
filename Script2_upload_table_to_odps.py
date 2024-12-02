@@ -2,9 +2,6 @@ import argparse
 import GMI_ComputeEngine_ODPS as GMI_CE
 from GMI_ComputeEngine_ODPS.computing.data_types import Column, ColumnType
 
-# SET API KEY
-GMI_CE.api_key = "*"
-
 # 1. Example column of ODPS table
 columns = [
     Column(name='granule_id', type=ColumnType.STRING, comment='Unique identifier for each granule'),
