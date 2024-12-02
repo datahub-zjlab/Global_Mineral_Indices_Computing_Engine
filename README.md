@@ -229,6 +229,14 @@ Mineral indices are calculated to identify and quantify the presence of specific
 
 By following these steps, the `Script3_computing.py` script enables the accurate processing of ASTER L1T data, including atmospheric correction, spectral harmonization with MODIS data, and calculation of mineral indices, to facilitate advanced remote sensing analysis.
 
+## Results
+Typical result of output aster merged and color balancinged image and mineral indices (Alteration Mapping of Porphyry Copper Deposits) in South America:
+
+<div style="display: flex; align-items: center;">
+  <img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_asterimage.png" alt="asterimage" width="250px" style="margin-right: 10px;" />
+  <img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_linearstretch_groupindex.png" alt="mineralindices" width="250px" />
+</div>
+
 ## Demo Data Sources and Licensing:
 The demo data provided includes the following datasets:
 
@@ -249,14 +257,6 @@ The demo data provided includes the following datasets:
   - **Licensing:** The data is distributed under the [NASA's Open Data Policy](https://www.nasa.gov/sites/default/files/atoms/files/nasa_open_data_policy.pdf), which allows for free and open access to the data for educational and scientific purposes.
 
 Please ensure you comply with the licensing terms when using these datasets.
-
-## Results
-Typical result of output aster merged and color balancinged image and mineral indices (Alteration Mapping of Porphyry Copper Deposits) in South America:
-
-<div style="display: flex; align-items: center;">
-  <img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_asterimage.png" alt="asterimage" width="250px" style="margin-right: 10px;" />
-  <img src="./Results/OBJECT.2075.POINT.(-108.07,32.793)_Chino_dis20km_linearstretch_groupindex.png" alt="mineralindices" width="250px" />
-</div>
 
 ## Reference
 1. Wilson, R. T., 2012, Py6S: A Python interface to the 6S radiative transfer model, Computers and Geosciences, 51, p166-171
