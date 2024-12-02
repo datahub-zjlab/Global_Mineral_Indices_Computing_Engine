@@ -4,7 +4,6 @@ from GMI_ComputeEngine_ODPS.computing.data_types import Column, ColumnType
 
 # SET API KEY
 GMI_CE.api_key = "*"
-GMI_CE.api_baseurl = "http://*.*.*.*:*/platform/"
 
 # 1. Example column of ODPS table
 columns = [

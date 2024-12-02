@@ -69,7 +69,9 @@ def process_tile(tile_index, aster_file, modis_ref_files, bands, aster_res, tile
 
         for i, band in enumerate(bands):
             result[band.replace(':','_')] = matrix_to_byte(zip_data[i])
-        if modis_ref_data:
+
+        if modis_ref_data is not None:
+            modis_ref_data = np.int16(modis_ref_data)
             for i in range(len(modis_ref_data)):
                 result[f'modis_bands_{i}'] = matrix_to_byte(modis_ref_data[i])
         else:
@@ -145,7 +147,7 @@ def hdf2tile_odps(aster_file, modis_aod_files, gdem_files, modis_ref_files, tile
         result_list = process_aster_file(aster_file, modis_aod_files, gdem_files, modis_ref_files, bands, tile_index)
         if len(result_list) > 0:
             result_df = pd.DataFrame(result_list)
-            result_df.to_csv(output_csv, index=False)
+            result_df.to_csv(output_csv, index=False, header=None)
     except Exception as e:
         print(f"Error processing HDF file: {e}")
 
@@ -176,7 +178,7 @@ if __name__ == '__main__':
     else:
         dem_input = float(dem_input)
 
-    modis_ref_files = args.modis_ref_file.split(',') if args.modis_ref_file else None
+    modis_ref_files = args.modis_ref_file if args.modis_ref_file else None
     tile_index = (args.tile_index_x, args.tile_index_y) if args.tile_index_x is not None and args.tile_index_y is not None else None
 
     hdf2tile_odps(aster_file, aod_input, dem_input, modis_ref_files, tile_index, output_csv)

@@ -6,7 +6,7 @@ from GMI_ComputeEngine_ODPS.computing.data_types import ColumnType, Column, JobS
 from GMI_ComputeEngine_ODPS import method
 
 api_key = __os.getenv("GMI_ComputeEngine_APIKEY")
-api_baseurl = __os.getenv("GMI_ComputeEngine_API_BASEURL", "https://www.citybrain.org/platform/")
+api_baseurl = "http://221.228.10.51:18080/platform/"
 
 __all__ = [
     "Computing",
