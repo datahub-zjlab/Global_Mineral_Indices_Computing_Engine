@@ -7,7 +7,7 @@ Traditional mineral indices research has typically focused on local areas. Howev
 ## Get started with following steps
 This guide will walk you through the steps to set up and utilize a computational pipeline for processing ASTER L1T data and performing advanced computations using ODPS (Online Data Processing Service). The process involves preparing your Python environment, installing necessary packages, transferring ASTER data into a structured table format, uploading this data to ODPS, performing computations, downloading the results, and converting the data into GeoTIFF files. We provide a comprehensive set of scripts and example data to facilitate this workflow.
 
-To get started, follow the detailed steps outlined below. We have also made available a set of demo data (you can download from [Google Drive Link](https://drive.google.com/drive/folders/1yQ1_9ZQLKNLNPn-t6w2nS44n9toOW67X?)) and ODPS computational resources to help you through the process.
+To get started, follow the detailed steps outlined below. We have also made available a set of **demo data** (you can download from [Google Drive Link](https://drive.google.com/drive/folders/1yQ1_9ZQLKNLNPn-t6w2nS44n9toOW67X?)) and **ODPS Computing Resources** (you can access it through api_key provide in GMI_ComputeEngine_ODPS api) to help you through the process.
 1. Prepare your Python enviroment
 
     First, you will need to set up a brand-new Python environment using conda and install the aster_core package. For detailed installation instructions and introductions to aster_core, you can refer to the [repository](https://github.com/datahub-zjlab/AsterL1T_SWIR-VNIR_pipeline) :
