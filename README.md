@@ -186,7 +186,7 @@ To get started, follow the detailed steps outlined below. We have also made avai
     Note: The script assumes that the CSV file has a specific structure, with columns for tile indices, metadata, and hexadecimal string data for each band. Make sure your CSV file matches this structure.
 
 **Note:**
-If you face any issues or need further assistance, please verify the legitimacy of the URL and ensure your network settings allow access to the ODPS server.
+Due to the limitations of the provided ODPS computing resources, downloading data from ODPS may take longer than expected, please be patient and wait for the download to complete.
 
 ## Detailed data processing steps
 
